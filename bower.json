@@ -1,0 +1,25 @@
+{
+  "name": "nexio-chat",
+  "description": "Chat notification relay",
+  "main": "index.js",
+  "authors": [
+    "chenglong zou"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "nodejs",
+    "socket"
+  ],
+  "homepage": "https://github.com/2XL/nexio-chat",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "socket.io": "~1.4.4"
+  }
+}
