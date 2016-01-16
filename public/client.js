@@ -37,13 +37,25 @@ function transformToAssocArray(prmstr) {
  */
 function nexioChat(options) {
 
+
     nexioChat.prototype.socket = io();
 
+    nexioChat.prototype.room;
     // usuario se registra en una incidencia del servidor
     nexioChat.prototype.join = function (incidents) {
+
+
         incidents.forEach(function (incident) {
+            if (nexioChat.prototype.room === undefined) {
+                // noop
+            } else {
+                nexioChat.prototype.socket.emit('leave', nexioChat.prototype.room);
+            }
             nexioChat.prototype.socket.emit('join', incident); // the client join some incident room
+            nexioChat.prototype.room = incident; // update to current room
         });
+
+
     };
 
     // usuario envia una notificación al servidor, para forwarding
@@ -69,5 +81,4 @@ function nexioChat(options) {
     };
 
     nexioChat.prototype.init(options);
-
 }

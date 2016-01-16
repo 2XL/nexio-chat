@@ -22,32 +22,26 @@ app.get('/', function (req, res) {
 
 // listening on incomming connections
 io.on('connection', function (socket) {
-    console.log('['+socket.id+'] -> Connected!');
+    console.log('[' + socket.id + '] -> Connected!');
 
-    socket.on('disconnect', function(){
-        console.log('['+socket.id+'] -> Disconnected!');
+    socket.on('disconnect', function () {
+        console.log('[' + socket.id + '] -> Disconnected!');
     });
 
-    socket.on('join', function(room){
-        console.info('['+socket.id+'] -> '+room);
+    socket.on('join', function (room) {
+        console.info('[' + socket.id + '] -> join[' + room + ']');
         socket.join(room);
     });
-
-
-    socket.on('notify', function(incident){
-        console.info('['+socket.id+'] -> '+incident);
-        socket.to(incident).emit('onmessage', incident);
+    socket.on('leave', function (room) {
+        console.info('[' + socket.id + '] -> leave[' + room + ']');
+        socket.leave(room);
     });
 
 
-
-
-
-
-
-
-
-
+    socket.on('notify', function (incident) {
+        console.info('[' + socket.id + '] -> ' + incident);
+        socket.to(incident).emit('onmessage', incident);
+    });
 
 
 });
