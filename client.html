@@ -18,71 +18,14 @@ Here goes the chat FRAME...
 
 </div>
 <script type="text/javascript">
-    // add listener on Enter key to send message (emit whatever)
-
-    /**
-     * Utils:
-     * retrieve get perameters
-     */
-    function getSearchParameters() {
-        var prmstr = window.location.search.substr(1);
-        return prmstr != null && prmstr != "" ? transformToAssocArray(prmstr) : {};
-    }
-    function transformToAssocArray(prmstr) {
-        var params = {};
-        var prmarr = prmstr.split("&");
-        for (var i = 0; i < prmarr.length; i++) {
-            var tmparr = prmarr[i].split("=");
-            params[tmparr[0]] = tmparr[1];
-        }
-        return params;
-    }
-
-
-    /**
-     * this will be the content of client.js
-     * url is the location of the
-     */
-    function nexioChat(options) {
-
-        nexioChat.prototype.socket = io();
-
-        // usuario se registra en una incidencia del servidor
-        nexioChat.prototype.join = function (incidents) {
-            incidents.forEach(function (incident) {
-                nexioChat.prototype.socket.emit('join', incident); // the client join some incident room
-            });
-        };
-
-        // usuario envia una notificación al servidor, para forwarding
-        nexioChat.prototype.notify = function (incident) {
-            nexioChat.prototype.socket.emit('notify', incident);
-            // the server should:
-            // io.to(incident).emit('onmessage');
-        };
-
-        nexioChat.prototype.listen = function () {
-            nexioChat.prototype.socket.on('onmessage', function (incident) {
-                console.log("received message from: " + incident);
-                // here comes the js controller to refresh the chat view.
-            });
-        }
-
-        nexioChat.prototype.init = function (options) {
-            nexioChat.prototype.socket = options.url === undefined ? io() : io(options.url);
-            nexioChat.prototype.listen();
-            nexioChat.prototype.join(options.incidents)
-        };
-
-        nexioChat.prototype.init(options);
-
-    }
-
-
     var options = getSearchParameters();
     options['incidents'] = [1, 2, 3, 4];
+    options['callback'] = function (incident) {
+        console.log("onmessage: " + incident);
+        // code to be executed when an onmessage event is called
+        // incident is notified
+    };
     var chat = new nexioChat(options); // create a new socket
-
 </script>
 
 
