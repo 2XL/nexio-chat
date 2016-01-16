@@ -10,23 +10,24 @@
 </head>
 <body>
 Here goes the chat FRAME...
-<form id="message">
-    <input type="text" id="text">
-</form>
+
+<input type="text" id="text">
+
 <div id="logger">
 
 </div>
 <script type="text/javascript">
     // add listener on Enter key to send message (emit whatever)
-
-    var notify = function () {
+    /**
+     * Como va funcionar esto?
+     * @param socket
+     */
+    var notify = function (socket) {
         // console.log()
-
         socket.emit('message', $('#text').val());
         // client the txt clean
         $('#text').val('');
-
-
+        $('#text').focus();
     };
     var socket = io();
 
@@ -41,7 +42,8 @@ Here goes the chat FRAME...
             notify(socket);
         }
     });
-
+    // set default focus to the text area.
+    $('#text').focus();
 </script>
 
 
