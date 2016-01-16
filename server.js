@@ -21,30 +21,22 @@ app.get('/', function (req, res) {
 });
 
 // listening on incomming connections
-var onlineClient = {};
 io.on('connection', function (socket) {
-    console.log('a user has connected!!!', socket.id);
-
-    onlineClient[socket.id] = socket;
+    console.log('['+socket.id+'] -> Connected!');
 
     socket.on('disconnect', function(){
-        console.log('user has disconnected');
-        onlineClient[socket.id] = null;
+        console.log('['+socket.id+'] -> Disconnected!');
+    });
+
+    socket.on('join', function(room){
+        console.info('['+socket.id+'] -> '+room);
+        socket.join(room);
     });
 
 
-
-    socket.on('message', function(msg, target){
-        console.log(msg);
-        if(!(target in onlineClient))
-            return; // noop
-        var clientSocket = onlineClient[target];
-        if(clientSocket === null){
-            // noop : client got DC
-        }else{
-            // notify has message.
-            clientSocket.emit('onmessage');
-        }
+    socket.on('notify', function(incident){
+        console.info('['+socket.id+'] -> '+incident);
+        socket.to(incident).emit('onmessage', incident);
     });
 
 
