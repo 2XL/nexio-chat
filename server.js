@@ -40,8 +40,8 @@ io.on('connection', function (socket) {
     socket.on('notify', function (incident) {
         console.info('[' + socket.id + '] -> notify[' + incident+']');
         // http://stackoverflow.com/questions/10058226/send-response-to-all-clients-except-sender-socket-io
-        io.in(incident).emit('onmessage', incident);
-        // socket.to(incident).emit('onmessage', incident);
+        // io.in(incident).emit('onmessage', incident); //dont have to notify self
+        socket.to(incident).emit('onmessage', incident);
     });
 
 

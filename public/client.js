@@ -35,12 +35,23 @@ function transformToAssocArray(prmstr) {
  * this will be the content of client.js
  * url is the location of the
  */
-function nexioChat(options) {
+var nexioChat = new (function() {
 
 
-    nexioChat.prototype.room;
+
+
+
+    var onMessageCallback = function(){
+
+    };
+
+    this.setCallback = function(cb){
+        console.log("set Callback as", cb);
+        onMessageCallback = cb;
+    };
+    this.room = undefined;
     // usuario se registra en una incidencia del servidor
-    nexioChat.prototype.join = function (incidents) {
+    this.join = function (incidents) {
 
         if(incidents === undefined){
 
@@ -51,44 +62,47 @@ function nexioChat(options) {
                 incidents = [incidents]; // parse to array
             }
             incidents.forEach(function (incident) {
-                if (nexioChat.prototype.room === undefined) {
+                if (nexioChat.room === undefined) {
                     // noop
                 } else {
-                    nexioChat.prototype.socket.emit('leave', nexioChat.prototype.room);
+                    nexioChat.socket.emit('leave', nexioChat.room);
                 }
                 // no op if the room is not changing.. todo
-                nexioChat.prototype.socket.emit('join', incident); // the client join some incident room
-                nexioChat.prototype.room = incident; // update to current room
+                nexioChat.socket.emit('join', incident); // the client join some incident room
+                nexioChat.room = incident; // update to current room
             });
         }
 
     };
 
     // usuario envia una notificación al servidor, para forwarding
-    nexioChat.prototype.notify = function (incident) {
-        nexioChat.prototype.socket.emit('notify', incident);
+    this.notify = function (incident) {
+        nexioChat.socket.emit('notify', incident);
         // the server should:
         // io.to(incident).emit('onmessage');
     };
 
-    nexioChat.prototype.listen = function () {
-        nexioChat.prototype.socket.on('onmessage', function (incident) {
+    this.listen = function () {
+        nexioChat.socket.on('onmessage', function (incident) {
             console.log("received message from: " + incident);
             // here comes the js controller to refresh the chat view.
-            nexioChat.prototype.callback(incident);
+            onMessageCallback(incident)
         });
     }
 
-    nexioChat.prototype.init = function (options) {
-        nexioChat.prototype.socket = options.hasOwnProperty('url') ? io(options.url) : io();
-        nexioChat.prototype.callback = options.hasOwnProperty('callback') ? options.callback : function(){
+    this.init = function (options) {
+        options = options === undefined ? {} : options;
+        nexioChat.socket = options.hasOwnProperty('url') ? io(options.url) : io();
+        onMessageCallback = options.hasOwnProperty('callback') ? options.callback : function(){
             console.log('Custome callack here:' +
-                'nexioChat.prototype.callback = function');
+                'nexioChat.callback = function');
         };
-        nexioChat.prototype.listen();
-        nexioChat.prototype.join(options.incidents)
+        nexioChat.listen();
+        // nexioChat.join(options.incidents)
     };
 
+})();
 
-    nexioChat.prototype.init(options === undefined ? {} : options);
-}
+nexioChat.init({url: 'http://localhost:8080'})
+console.log(nexioChat)
+// module.exports(nexioChat);
