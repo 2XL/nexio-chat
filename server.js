@@ -1,12 +1,11 @@
 var express = require('express');
 var app = express();
-
-var http = require('http').Server(app);
-
 var port = process.env.PORT || 8080;
-
+app.set('port', port);
+var http = require('http').Server(app);
 var io = require('socket.io')(http);
 // socket bind to http server
+
 
 
 app.use('/', express.static(__dirname + '/public'));
@@ -39,8 +38,10 @@ io.on('connection', function (socket) {
 
 
     socket.on('notify', function (incident) {
-        console.info('[' + socket.id + '] -> ' + incident);
-        socket.to(incident).emit('onmessage', incident);
+        console.info('[' + socket.id + '] -> notify[' + incident+']');
+        // http://stackoverflow.com/questions/10058226/send-response-to-all-clients-except-sender-socket-io
+        io.in(incident).emit('onmessage', incident);
+        // socket.to(incident).emit('onmessage', incident);
     });
 
 

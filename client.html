@@ -19,6 +19,7 @@
 </div>
 <script type="text/javascript">
     var options = getSearchParameters();
+    options['url'] = 'http://localhost:8080';
     options['incidents'] = [1, 2, 3, 4];
     options['callback'] = function (incident) {
         alert("onmessage: " + incident);

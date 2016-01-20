@@ -38,23 +38,29 @@ function transformToAssocArray(prmstr) {
 function nexioChat(options) {
 
 
-    nexioChat.prototype.socket = io();
-
     nexioChat.prototype.room;
     // usuario se registra en una incidencia del servidor
     nexioChat.prototype.join = function (incidents) {
 
+        if(incidents === undefined){
 
-        incidents.forEach(function (incident) {
-            if (nexioChat.prototype.room === undefined) {
-                // noop
-            } else {
-                nexioChat.prototype.socket.emit('leave', nexioChat.prototype.room);
+        }else {
+            if(Array.isArray(incidents)){
+                // no op
+            }else{
+                incidents = [incidents]; // parse to array
             }
-            nexioChat.prototype.socket.emit('join', incident); // the client join some incident room
-            nexioChat.prototype.room = incident; // update to current room
-        });
-
+            incidents.forEach(function (incident) {
+                if (nexioChat.prototype.room === undefined) {
+                    // noop
+                } else {
+                    nexioChat.prototype.socket.emit('leave', nexioChat.prototype.room);
+                }
+                // no op if the room is not changing.. todo
+                nexioChat.prototype.socket.emit('join', incident); // the client join some incident room
+                nexioChat.prototype.room = incident; // update to current room
+            });
+        }
 
     };
 
@@ -74,11 +80,15 @@ function nexioChat(options) {
     }
 
     nexioChat.prototype.init = function (options) {
-        nexioChat.prototype.socket = options.url === undefined ? io() : io(options.url);
-        nexioChat.prototype.callback = options.callback;
+        nexioChat.prototype.socket = options.hasOwnProperty('url') ? io(options.url) : io();
+        nexioChat.prototype.callback = options.hasOwnProperty('callback') ? options.callback : function(){
+            console.log('Custome callack here:' +
+                'nexioChat.prototype.callback = function');
+        };
         nexioChat.prototype.listen();
         nexioChat.prototype.join(options.incidents)
     };
 
-    nexioChat.prototype.init(options);
+
+    nexioChat.prototype.init(options === undefined ? {} : options);
 }
