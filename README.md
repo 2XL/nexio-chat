@@ -33,6 +33,11 @@ Pasos
 2  cuando un usario envia un mensaje, esta va dirigido a alguna incidencia.
 
 
+# afegir pdf viewer -> similar al que hiha per demo [pdfJS]
+
+
+
+
 # how to:
 
 
