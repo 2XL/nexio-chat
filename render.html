@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"
+        "http://www.w3.org/TR/html4/frameset.dtd">
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>PDF reader view</title>
+    <!-- libs
+
+
+    -->
+    <script src="/libs/jquery/dist/jquery.js"></script>
+    <script src="/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/libs/bootstrap/dist/css/bootstrap.min.css">
+    <script src="/libs/pdfjs-dist/build/pdf.js" type="text/javascript"></script>
+    <script src="/libs/pdfjs-dist/build/pdf.worker.js" type="text/javascript"></script>
+    <script src="/libs/pdfjs-dist/build/pdf.combined.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        console.log("Head script");
+        // todo add router operation to generate the view
+
+        /*
+         XXXX.pdf.link <-- this
+         XXXX.pdf
+         */
+
+
+    </script>
+
+    <style type="text/css">
+        html {
+            position: relative;
+            height: 100%
+
+        }
+
+        #pdf-render {
+            height: 900px;
+            width: 100%;
+            position: relative;
+        }
+    </style>
+</head>
+
+
+<body width="100%" height="100%">
+
+<!-- Centered Pills -->
+
+<!--
+    Here goes a pdf frame
+    -->
+
+<div id="pdf-list">
+    <!-- injectar els urls de pdf aqui! -->
+    <ul class="nav nav-pills nav-justified">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a target="pdf-render" href="/web/viewer.html?file=/pdfs/issue6410.pdf" id="report" class="report">Menu 1</a></li>
+        <li><a target="pdf-render" href="/web/viewer.html?file=/pdfs/issue6387.pdf" class="report">Menu 2</a></li>
+        <li><a target="pdf-render" href="/web/viewer.html?file=/pdfs/report_1041" class="report">Menu 3</a></li>
+    </ul>
+</div>
+
+<iframe scrolling="no" frameborder="0" src="/web/viewer.html?file=/pdfs/issue6410.pdf" id="pdf-render" name="pdf-render"></iframe>
+
+<!--
+Here goes a pdf report-list index
+
+<a href="http://localhost:8888/test/">..</a><br>
+<a href="http://localhost:8080/web/viewer.html?file=%2Ftest%2Fpdfs%2FArabicCIDTrueType.pdf" target="pdf">ArabicCIDTrueType.pdf</a><br>
+<a href="http://localhost:8888/web/viewer.html?file=%2Ftest%2Fpdfs%2FIdentityToUnicodeMap_charCodeOf.pdf" target="pdf">IdentityToUnicodeMap_charCodeOf.pdf</a><br>
+<a href="http://localhost:8888/web/viewer.html?file=%2Ftest%2Fpdfs%2FS2.pdf" target="pdf">S2.pdf</a><br>
+<a href="http://localhost:8888/web/viewer.html?file=%2Ftest%2Fpdfs%2FShowText-ShadingPattern.pdf" target="pdf">ShowText-ShadingPattern.pdf</a><br>
+<a href="http://localhost:8888/web/viewer.html?file=%2Ftest%2Fpdfs%2FTAMReview.pdf" target="pdf">TAMReview.pdf</a><br>
+-->
+
+<!-- copy paste de com esta integrat alli al demo -->
+
+
+<script type="text/javascript">
+    console.log("Body script")
+
+
+    var report = document.getElementsByClassName('report');
+    console.log(report);
+    for (var key in report) {
+        var item = report[key];
+        console.log(item);
+
+        item.onclick = function (event) {
+            var href = this.getAttribute('href');
+            console.log('doSomething', event, href);
+            // event.preventDefault();
+
+        };
+        // append onclick
+    }
+
+</script>
+</body>
+</html>

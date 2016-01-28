@@ -7,12 +7,15 @@ var io = require('socket.io')(http);
 // socket bind to http server
 
 
-
 app.use('/', express.static(__dirname + '/public'));
 app.use('/libs', express.static(__dirname + '/bower_components'));
-
+app.use('/web/locale');
 app.get('/client', function (req, res) {
     res.sendFile(__dirname + '/client.html');
+});
+
+app.get('/render', function (req, res) {
+    res.sendFile(__dirname + '/render.html');
 });
 
 app.get('/', function (req, res) {
@@ -38,7 +41,7 @@ io.on('connection', function (socket) {
 
 
     socket.on('notify', function (incident) {
-        console.info('[' + socket.id + '] -> notify[' + incident+']');
+        console.info('[' + socket.id + '] -> notify[' + incident + ']');
         // http://stackoverflow.com/questions/10058226/send-response-to-all-clients-except-sender-socket-io
         // io.in(incident).emit('onmessage', incident); //dont have to notify self
         socket.to(incident).emit('onmessage', incident);

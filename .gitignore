@@ -2,4 +2,7 @@
 node_modules
 bower_components
 nexio-chat.iml
+public/pdfs
+constants.js
+test
 

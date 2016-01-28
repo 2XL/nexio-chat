@@ -2,9 +2,9 @@
   "name": "nexio-chat",
   "version": "1.0.0",
   "description": "Chat notification relay",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "node server.js",
+    "test": "node server.chat.pdf.js",
     "start": "node server.js",
     "postinstall": "bower install"
   },
@@ -23,8 +23,11 @@
   },
   "homepage": "https://github.com/2XL/nexio-chat#readme",
   "dependencies": {
+    "aws-sdk": "^2.2.32",
     "bower": "^1.7.2",
     "express": "^4.13.3",
+    "require": "^2.4.20",
+    "requirejs": "^2.1.22",
     "socket.io": "^1.4.4"
   }
 }
