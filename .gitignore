@@ -5,4 +5,5 @@ nexio-chat.iml
 public/pdfs
 constants.js
 test
-
+public
+server.*.js
