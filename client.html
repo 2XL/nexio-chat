@@ -10,7 +10,6 @@
 </head>
 <body>
 
-<input type="text" id="currentRoom"></div>
 <input type="text" id="room" placeholder="write room to Join or Notify">
 <button type="button" id="joinBtn">Join</button>
 <button type="button" id="notifyBtn">Notify</button>
@@ -18,28 +17,25 @@
 
 </div>
 <script type="text/javascript">
-    var options = getSearchParameters();
-    options['url'] = 'http://localhost:8080';
-    options['incidents'] = [1, 2, 3, 4];
-    options['callback'] = function (incident) {
+
+
+    var cb =  function (incident) {
         alert("onmessage: " + incident);
         // code to be executed when an onmessage event is called
         // incident is notified
     };
-    var chat = new nexioChat(options); // create a new socket
 
-    $('#currentRoom').val(chat.room);
+    nexioChat.setCallback(cb);
+
     $('#joinBtn').click(function () {
-        chat.room = $('#joinRoom').val();
         // current room value
-        $('#currentRoom').val(chat.room);
-        chat.join(chat.room);
-    })
+        nexioChat.join($('#room').val());
+    });
+
     $('#notifyBtn').click(function () {
-        chat.room = $('#joinRoom').val();
         // current room value
-        chat.notify(chat.room);
-    })
+        nexioChat.notify($('#room').val());
+    });
 
 </script>
 

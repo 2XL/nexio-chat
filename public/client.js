@@ -38,11 +38,8 @@ function transformToAssocArray(prmstr) {
 var nexioChat = new (function() {
 
 
-
-
-
     var onMessageCallback = function(){
-
+        console.log("To be SET")
     };
 
     this.setCallback = function(cb){
@@ -103,6 +100,6 @@ var nexioChat = new (function() {
 
 })();
 
-nexioChat.init({url: 'http://localhost:8080'})
-console.log(nexioChat)
+nexioChat.init({url: 'http://localhost:8080'});
+console.log(nexioChat);
 // module.exports(nexioChat);
