@@ -85,7 +85,7 @@ var nexioChat = new (function() {
             // here comes the js controller to refresh the chat view.
             onMessageCallback(incident)
         });
-    }
+    };
 
     this.init = function (options) {
         options = options === undefined ? {} : options;

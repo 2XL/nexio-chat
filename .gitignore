@@ -5,6 +5,11 @@ nexio-chat.iml
 constants.js
 public/pdfs
 public/web
+public/extensions
+public/external
+public/l10n
+public/src
+public/ico
 server.chat.js
 server.chat.pdf.js
 test
