@@ -100,6 +100,6 @@ var nexioChat = new (function() {
 
 })();
 
-nexioChat.init({url: 'http://localhost:8080'});
+// nexioChat.init({url: 'http://localhost:8080'});
 console.log(nexioChat);
 // module.exports(nexioChat);
